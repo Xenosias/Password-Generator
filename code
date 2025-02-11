@@ -1,0 +1,34 @@
+import random
+import string
+
+def generer_mot_de_passe(longueur=12, majuscules=True, minuscules=True, chiffres=True, caracteres_speciaux=True):
+    caracteres = ""
+    
+    if majuscules:
+        caracteres += string.ascii_uppercase
+    if minuscules:
+        caracteres += string.ascii_lowercase
+    if chiffres:
+        caracteres += string.digits
+    if caracteres_speciaux:
+        caracteres += string.punctuation
+    
+    if not caracteres:
+        raise ValueError("Au moins un type de caractère doit être sélectionné.")
+    
+    mot_de_passe = ''.join(random.choice(caracteres) for _ in range(longueur))
+    return mot_de_passe
+
+# Exemple d'utilisation
+if __name__ == "__main__":
+    longueur = int(input("Longueur du mot de passe : "))
+    majuscules = input("Inclure des majuscules (o/n) ? ").lower() == 'o'
+    minuscules = input("Inclure des minuscules (o/n) ? ").lower() == 'o'
+    chiffres = input("Inclure des chiffres (o/n) ? ").lower() == 'o'
+    caracteres_speciaux = input("Inclure des caractères spéciaux (o/n) ? ").lower() == 'o'
+    
+    try:
+        mot_de_passe = generer_mot_de_passe(longueur, majuscules, minuscules, chiffres, caracteres_speciaux)
+        print(f"Mot de passe généré : {mot_de_passe}")
+    except ValueError as e:
+        print(e)
